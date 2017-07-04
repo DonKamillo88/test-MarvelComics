@@ -4,5 +4,8 @@
     <string name="your_budget">Your budget</string>
     <string name="max_number_of_comics">Max number of comics</string>
     <string name="max_number_of_pages">Max number of pages</string>
+    <string name="creators">Creators:</string>
+    <string name="pages">Pages:</string>
+    <string name="price">Price:</string>
 
 </resources>

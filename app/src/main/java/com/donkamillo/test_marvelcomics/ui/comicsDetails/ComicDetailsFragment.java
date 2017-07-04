@@ -2,6 +2,7 @@ package com.donkamillo.test_marvelcomics.ui.comicsDetails;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.donkamillo.test_marvelcomics.R;
 import com.donkamillo.test_marvelcomics.data.model.ComicModel;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,7 +22,7 @@ import butterknife.Unbinder;
  * Created by DonKamillo on 04.07.2017.
  */
 
-public class ComicDetailsFragment  extends Fragment {
+public class ComicDetailsFragment extends Fragment {
     public static final String COMIC_DETAILS_ARG = "comic_detail";
 
     @BindView(R.id.main_layout)
@@ -64,18 +67,38 @@ public class ComicDetailsFragment  extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            ComicModel.Result comicDetail = (ComicModel.Result  ) bundle.getSerializable(COMIC_DETAILS_ARG);
+            ComicModel.Result comicDetail = (ComicModel.Result) bundle.getSerializable(COMIC_DETAILS_ARG);
             updateData(comicDetail);
         }
     }
 
     public void updateData(ComicModel.Result comicDetail) {
+        if (comicDetail == null) return;
+
         titleTV.setText(comicDetail.getTitle());
-        descriptionTV.setText(comicDetail.getDescription());
-        pageCountTV.setText(comicDetail.getPageCount()+"");
-        priceTV.setText(comicDetail.getPrices().get(0).getPrice()+"");
-        creatorsTV.setText(comicDetail.getCreators().getItems().get(0).getName()+"");
+        descriptionTV.setText(comicDetail.getDescription() != null ? Html.fromHtml(comicDetail.getDescription()) : "---");
+        pageCountTV.setText(comicDetail.getPageCount() + "");
+        priceTV.setText(getPrice(comicDetail.getPrices()));
+        creatorsTV.setText(Html.fromHtml(getCreatorstList(comicDetail.getCreators())));
         mainLL.setVisibility(View.VISIBLE);
+    }
+
+    private String getCreatorstList(ComicModel.Creator creator) {
+        if (creator == null || creator.getItems() == null || creator.getItems().isEmpty()) {
+            return "---";
+        }
+        StringBuilder bullets = new StringBuilder();
+        for (ComicModel.CreatorItem creatorItem : creator.getItems()) {
+            bullets.append("<br/>\n&#8226; ").append(creatorItem.getName()).append(" - ").append(creatorItem.getRole()).append("\n");
+        }
+        return bullets.toString();
+    }
+
+    private String getPrice(List<ComicModel.Price> prices) {
+        if (prices != null && !prices.isEmpty() && prices.get(0) != null)
+            return prices.get(0).getPrice() + "";
+        else
+            return "---";
     }
 
     @Override
