@@ -3,8 +3,11 @@ package com.donkamillo.test_marvelcomics.data.remote;
 import android.content.Context;
 
 import com.donkamillo.test_marvelcomics.data.DataSource;
+import com.donkamillo.test_marvelcomics.data.local.SharedPreferencesManager;
 import com.donkamillo.test_marvelcomics.data.model.ComicModel;
 import com.donkamillo.test_marvelcomics.util.HashGenerator;
+
+import java.util.Date;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,9 +24,11 @@ public class RemoteDataSource extends DataSource {
 
     private CompositeDisposable compositeDisposable;
     private MarvelApi api;
+    private SharedPreferencesManager preferencesManager;
 
-    public RemoteDataSource(MarvelApi api) {
+    public RemoteDataSource(MarvelApi api, SharedPreferencesManager preferencesManager) {
         this.api = api;
+        this.preferencesManager = preferencesManager;
     }
 
     @Override
@@ -31,6 +36,10 @@ public class RemoteDataSource extends DataSource {
         DisposableSingleObserver<ComicModel> disposableSingleObserver = new DisposableSingleObserver<ComicModel>() {
             @Override
             public void onSuccess(ComicModel model) {
+                long today = new Date().getTime();
+                preferencesManager.saveCacheDate(today);
+                preferencesManager.saveCache(model);
+
                 callback.onSuccess(model);
             }
 

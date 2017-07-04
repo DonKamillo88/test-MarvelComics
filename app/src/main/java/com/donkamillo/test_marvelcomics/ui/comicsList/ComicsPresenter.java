@@ -5,7 +5,9 @@ import android.content.Context;
 import com.donkamillo.test_marvelcomics.R;
 import com.donkamillo.test_marvelcomics.data.DataRepository;
 import com.donkamillo.test_marvelcomics.data.DataSource;
+import com.donkamillo.test_marvelcomics.data.local.LocalDataSource;
 import com.donkamillo.test_marvelcomics.data.model.ComicModel;
+import com.donkamillo.test_marvelcomics.data.remote.RemoteDataSource;
 import com.donkamillo.test_marvelcomics.util.Utils;
 
 
@@ -24,9 +26,11 @@ public class ComicsPresenter implements ComicsContract.Presenter {
     private int limit;
     private String publicKey;
     private String privateKey;
+    private LocalDataSource localDataSource;
 
-    public ComicsPresenter(Context context, DataRepository dataRepository, String format, String formatType, int limit, String publicKey, String privateKey) {
+    public ComicsPresenter(Context context, DataRepository dataRepository, LocalDataSource localDataSource, String format, String formatType, int limit, String publicKey, String privateKey) {
         this.dataRepository = dataRepository;
+        this.localDataSource = localDataSource;
         this.context = context;
         this.format = format;
         this.formatType = formatType;
@@ -40,10 +44,14 @@ public class ComicsPresenter implements ComicsContract.Presenter {
         if (view == null) {
             return;
         }
-        view.setBudgetViewVisible(false);
-        view.setProgressBarVisible(true);
 
         dataSource = dataRepository.getDataSource();
+        callGetComics(dataSource);
+    }
+
+    private void callGetComics(final DataSource dataSource) {
+        view.setBudgetViewVisible(false);
+        view.setProgressBarVisible(true);
 
         dataSource.getComics(context, new DataSource.GetComicsCallback() {
             @Override
@@ -57,11 +65,18 @@ public class ComicsPresenter implements ComicsContract.Presenter {
 
             @Override
             public void onFailure(Throwable throwable) {
-                if (view != null) {
-                    view.setProgressBarVisible(false);
-                    view.setBudgetViewVisible(false);
-                    view.showErrorMessage(context.getString(R.string.error_msg));
+
+                // remote exception -> try get data from cache
+                if (dataSource instanceof RemoteDataSource) {
+                    callGetComics(localDataSource);
+                } else {
+                    if (view != null) {
+                        view.setProgressBarVisible(false);
+                        view.setBudgetViewVisible(false);
+                        view.showErrorMessage(context.getString(R.string.error_msg));
+                    }
                 }
+
             }
 
         }, format, formatType, limit, Utils.getCurrentTimestamp(), publicKey, privateKey);
