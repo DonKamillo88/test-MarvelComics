@@ -9,6 +9,7 @@ import com.donkamillo.test_marvelcomics.data.local.SharedPreferencesManager;
 import com.donkamillo.test_marvelcomics.data.model.ComicModel;
 import com.google.gson.Gson;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,12 @@ public class CacheInstrumentationTest {
     public void setUp() {
         Context app = InstrumentationRegistry.getTargetContext();
         this.preferencesManager = new SharedPreferencesManager(PreferenceManager.getDefaultSharedPreferences(app), new Gson());
+    }
+
+    @After
+    public void after() {
+        preferencesManager.saveCache(null);
+        preferencesManager.saveCacheDate(0);
     }
 
     @Test

@@ -52,11 +52,13 @@ public class ComicsCardsAdapter extends RecyclerView.Adapter<ComicsCardsAdapter.
     @Override
     public void onBindViewHolder(ComicViewHolder holder, int i) {
         ComicModel.Result result = comics.get(i);
-
+        if (result == null)
+            return;
         holder.title.setText(result.getTitle());
         holder.setMainLayoutBackground(i);
         holder.setOnClickListener(result);
-        holder.showThumbnail(result.getThumbnail().getPath(), result.getThumbnail().getExtension());
+        if (result.getThumbnail() != null)
+            holder.showThumbnail(result.getThumbnail().getPath(), result.getThumbnail().getExtension());
 
     }
 

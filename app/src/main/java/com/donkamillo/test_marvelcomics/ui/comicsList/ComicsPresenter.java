@@ -62,7 +62,7 @@ public class ComicsPresenter implements ComicsContract.Presenter {
         dataSource.getComics(context, new DataSource.GetComicsCallback() {
             @Override
             public void onSuccess(ComicModel model) {
-                if (model.getData() != null && model.getData().getResults() != null) {
+                if (model != null && model.getData() != null && model.getData().getResults() != null) {
                     comicsSortedByPrices = new ArrayList<>(model.getData().getResults());
                     sortComicsBy(comicsSortedByPrices, ComicModelResultComparator.Order.PRICE);
                 }
