@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Test-MarvelComics</string>
+    <string name="error_msg">Something went wrong, please try again later.</string>
+
+</resources>

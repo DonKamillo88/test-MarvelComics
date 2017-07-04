@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:text="Hedge Knight II: Sworn Sword (2007) #1 (Yu Variant)" />
+
+    <TextView
+        android:id="@+id/page_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:text="150" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:text="20" />
+
+    <TextView
+        android:id="@+id/creators"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:text="Ben Avery, George R. r. Martin, Mike S. Miller" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:text="In 2003, Dabel Brothers Productions released THE HEDGE KNIGHT and stunned the comic book world with their high quality adaptation of New York Times Best-Selling author George R. R. Martin's novella which serves as a prequel to his epic novel series, A SONG OF ICE AND FIRE. In 2004, the collected graphic novel edition of THE HEDGE KNIGHT went on to become one of the best-selling graphic novels of the year." />
+
+
+</LinearLayout>
