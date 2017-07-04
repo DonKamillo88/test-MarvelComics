@@ -1,10 +1,11 @@
-package com.donkamillo.test_marvelcomics;
+package com.donkamillo.test_marvelcomics.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.donkamillo.test_marvelcomics.R;
 import com.donkamillo.test_marvelcomics.data.model.ComicModel;
 import com.donkamillo.test_marvelcomics.di.App;
 import com.donkamillo.test_marvelcomics.ui.comicsDetails.ComicDetailsFragment;

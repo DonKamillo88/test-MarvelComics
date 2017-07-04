@@ -40,7 +40,7 @@ public class ComicModelResultComparator implements Comparator<ComicModel.Result>
         if (comic2.getPrices() != null && !comic2.getPrices().isEmpty() && comic2.getPrices().get(0) != null) {
             price2 = comic2.getPrices().get(0).getPrice();
         }
-        return (int) (price1 - price2);
+        return Double.compare(price1, price2);
 
     }
 }

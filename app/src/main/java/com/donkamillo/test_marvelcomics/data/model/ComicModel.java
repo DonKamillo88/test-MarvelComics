@@ -15,7 +15,7 @@ public class ComicModel implements Serializable {
         return data;
     }
 
-    public static class Data {
+    public static class Data implements Serializable {
         private List<Result> results;
 
         public List<Result> getResults() {

@@ -120,14 +120,15 @@ public class ComicsPresenter implements ComicsContract.Presenter {
         int comicsNo = 0;
         int pages = 0;
         for (ComicModel.Result result : comicsSortedByPrices) {
+
             if (isPriceExist(result)) {
+
+                if (totalPrice + result.getPrices().get(0).getPrice() > currentBudget) {
+                    break;
+                }
                 comicsNo++;
                 totalPrice = totalPrice + result.getPrices().get(0).getPrice();
                 pages = pages + result.getPageCount();
-            }
-
-            if (totalPrice >= currentBudget) {
-                break;
             }
         }
 

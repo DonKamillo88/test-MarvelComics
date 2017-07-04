@@ -1,6 +1,6 @@
 package com.donkamillo.test_marvelcomics.di;
 
-import com.donkamillo.test_marvelcomics.MainActivity;
+import com.donkamillo.test_marvelcomics.ui.MainActivity;
 import com.donkamillo.test_marvelcomics.di.module.AndroidModule;
 import com.donkamillo.test_marvelcomics.di.module.ApiModule;
 import com.donkamillo.test_marvelcomics.di.module.DataModule;
