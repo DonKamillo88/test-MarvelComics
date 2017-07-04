@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.donkamillo.test_marvelcomics.data.model.ComicModel;
 import com.donkamillo.test_marvelcomics.di.App;
+import com.donkamillo.test_marvelcomics.ui.comicsDetails.ComicDetailsFragment;
 import com.donkamillo.test_marvelcomics.ui.comicsList.ComicListFragment;
 
 import butterknife.ButterKnife;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements ComicListFragment
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
         ComicListFragment comicListFragment = ComicListFragment.newInstance();
-        ft.add(R.id.comics_list_fragment_placeholder, comicListFragment);
+        ft.add(R.id.comics_fragment_placeholder, comicListFragment);
         ft.commit();
     }
 
@@ -50,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements ComicListFragment
 
     @Override
     public void onItemSelected(ComicModel.Result data) {
+        ComicDetailsFragment detailFragment = ComicDetailsFragment.newInstance(data);
 
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.comics_fragment_placeholder, detailFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

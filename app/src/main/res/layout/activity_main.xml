@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/comics_list_fragment_placeholder"
+        android:id="@+id/comics_fragment_placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true">

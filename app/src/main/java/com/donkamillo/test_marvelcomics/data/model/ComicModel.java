@@ -1,5 +1,6 @@
 package com.donkamillo.test_marvelcomics.data.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -22,10 +23,13 @@ public class ComicModel {
         }
     }
 
-    public static class Result {
+    public static class Result implements Serializable {
         private String title;
         private String description;
         private Thumbnail thumbnail;
+        private Creator creators;
+        private List<Price> prices;
+        private int pageCount;
 
         public String getTitle() {
             return title;
@@ -38,30 +42,23 @@ public class ComicModel {
         public Thumbnail getThumbnail() {
             return thumbnail;
         }
-    }
 
-    public static class Thumbnail {
-        private String path;
-        private String extension;
-        private List<Creator> creators;
-
-        public String getPath() {
-            return path;
-        }
-
-        public String getExtension() {
-            return extension;
-        }
-
-        public List<Creator> getCreators() {
+        public Creator getCreators() {
             return creators;
         }
+
+        public int getPageCount() {
+            return pageCount;
+        }
+
+        public List<Price> getPrices() {
+            return prices;
+        }
     }
 
-    public static class Creator {
+    public static class Thumbnail implements Serializable {
         private String path;
         private String extension;
-        private CreatorItem items;
 
         public String getPath() {
             return path;
@@ -71,12 +68,17 @@ public class ComicModel {
             return extension;
         }
 
-        public CreatorItem getItems() {
+    }
+
+    public static class Creator implements Serializable {
+        private List<CreatorItem> items;
+
+        public List<CreatorItem> getItems() {
             return items;
         }
     }
 
-    public static class CreatorItem {
+    public static class CreatorItem implements Serializable {
         private String role;
         private String name;
 
@@ -86,6 +88,19 @@ public class ComicModel {
 
         public String getName() {
             return name;
+        }
+    }
+
+    public static class Price implements Serializable {
+        private String type;
+        private float price;
+
+        public String getType() {
+            return type;
+        }
+
+        public float getPrice() {
+            return price;
         }
     }
 
