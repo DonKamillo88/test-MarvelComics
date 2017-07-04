@@ -8,7 +8,12 @@ import com.donkamillo.test_marvelcomics.data.DataSource;
 import com.donkamillo.test_marvelcomics.data.local.LocalDataSource;
 import com.donkamillo.test_marvelcomics.data.model.ComicModel;
 import com.donkamillo.test_marvelcomics.data.remote.RemoteDataSource;
+import com.donkamillo.test_marvelcomics.util.ComicModelResultComparator;
 import com.donkamillo.test_marvelcomics.util.Utils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -27,6 +32,7 @@ public class ComicsPresenter implements ComicsContract.Presenter {
     private String publicKey;
     private String privateKey;
     private LocalDataSource localDataSource;
+    private List<ComicModel.Result> comicsSortedByPrices;
 
     public ComicsPresenter(Context context, DataRepository dataRepository, LocalDataSource localDataSource, String format, String formatType, int limit, String publicKey, String privateKey) {
         this.dataRepository = dataRepository;
@@ -56,6 +62,11 @@ public class ComicsPresenter implements ComicsContract.Presenter {
         dataSource.getComics(context, new DataSource.GetComicsCallback() {
             @Override
             public void onSuccess(ComicModel model) {
+                if (model.getData() != null && model.getData().getResults() != null) {
+                    comicsSortedByPrices = new ArrayList<>(model.getData().getResults());
+                    sortComicsBy(comicsSortedByPrices, ComicModelResultComparator.Order.PRICE);
+                }
+
                 if (view != null) {
                     view.updateComicsData(model);
                     view.setProgressBarVisible(false);
@@ -94,9 +105,38 @@ public class ComicsPresenter implements ComicsContract.Presenter {
 
     @Override
     public void onBudgetTextChanged(String s) {
-
         double currentBudget = Double.parseDouble(s.replaceAll(" ", ".").replaceAll(",", "."));
-        view.setMaxComicsNo((int) currentBudget);
-        view.setMaxPagesNo((int) currentBudget);
+        setBudgetView(currentBudget);
     }
+
+    private void sortComicsBy(List<ComicModel.Result> comics, ComicModelResultComparator.Order sortingBy) {
+        ComicModelResultComparator comparator = new ComicModelResultComparator();
+        comparator.setSortingBy(sortingBy);
+        Collections.sort(comics, comparator);
+    }
+
+    private void setBudgetView(double currentBudget) {
+        double totalPrice = 0;
+        int comicsNo = 0;
+        int pages = 0;
+        for (ComicModel.Result result : comicsSortedByPrices) {
+            if (isPriceExist(result)) {
+                comicsNo++;
+                totalPrice = totalPrice + result.getPrices().get(0).getPrice();
+                pages = pages + result.getPageCount();
+            }
+
+            if (totalPrice >= currentBudget) {
+                break;
+            }
+        }
+
+        view.setMaxComicsNo(comicsNo);
+        view.setMaxPagesNo(pages);
+    }
+
+    private boolean isPriceExist(ComicModel.Result result) {
+        return result.getPrices() != null && !result.getPrices().isEmpty() && result.getPrices().get(0) != null;
+    }
+
 }
