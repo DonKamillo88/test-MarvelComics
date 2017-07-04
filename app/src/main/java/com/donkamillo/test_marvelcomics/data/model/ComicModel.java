@@ -15,11 +15,19 @@ public class ComicModel implements Serializable {
         return data;
     }
 
+    public void setData(Data data) {
+        this.data = data;
+    }
+
     public static class Data implements Serializable {
         private List<Result> results;
 
         public List<Result> getResults() {
             return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
         }
     }
 
@@ -58,6 +66,14 @@ public class ComicModel implements Serializable {
         public void setPrices(List<Price> prices) {
             this.prices = prices;
         }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setPageCount(int pageCount) {
+            this.pageCount = pageCount;
+        }
     }
 
     public static class Thumbnail implements Serializable {
@@ -72,6 +88,13 @@ public class ComicModel implements Serializable {
             return extension;
         }
 
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public void setExtension(String extension) {
+            this.extension = extension;
+        }
     }
 
     public static class Creator implements Serializable {
