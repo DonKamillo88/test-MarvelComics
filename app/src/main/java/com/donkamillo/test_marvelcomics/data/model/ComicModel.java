@@ -54,6 +54,10 @@ public class ComicModel implements Serializable {
         public List<Price> getPrices() {
             return prices;
         }
+
+        public void setPrices(List<Price> prices) {
+            this.prices = prices;
+        }
     }
 
     public static class Thumbnail implements Serializable {
@@ -101,6 +105,10 @@ public class ComicModel implements Serializable {
 
         public float getPrice() {
             return price;
+        }
+
+        public void setPrice(float price) {
+            this.price = price;
         }
     }
 

@@ -33,11 +33,11 @@ public class ComicModelResultComparator implements Comparator<ComicModel.Result>
     private int comparePrices(ComicModel.Result comic1, ComicModel.Result comic2) {
 
         double price1 = 0;
-        if (comic1.getPrices() != null && !comic1.getPrices().isEmpty() && comic1.getPrices().get(0) != null) {
+        if (comic1 != null && comic1.getPrices() != null && !comic1.getPrices().isEmpty() && comic1.getPrices().get(0) != null) {
             price1 = comic1.getPrices().get(0).getPrice();
         }
         double price2 = 0;
-        if (comic2.getPrices() != null && !comic2.getPrices().isEmpty() && comic2.getPrices().get(0) != null) {
+        if (comic2 != null && comic2.getPrices() != null && !comic2.getPrices().isEmpty() && comic2.getPrices().get(0) != null) {
             price2 = comic2.getPrices().get(0).getPrice();
         }
         return Double.compare(price1, price2);
