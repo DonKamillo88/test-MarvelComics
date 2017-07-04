@@ -40,8 +40,8 @@ public class ComicsPresenter implements ComicsContract.Presenter {
         if (view == null) {
             return;
         }
-
-        view.setProgressBar(true);
+        view.setBudgetViewVisible(false);
+        view.setProgressBarVisible(true);
 
         dataSource = dataRepository.getDataSource();
 
@@ -50,14 +50,16 @@ public class ComicsPresenter implements ComicsContract.Presenter {
             public void onSuccess(ComicModel model) {
                 if (view != null) {
                     view.updateComicsData(model);
-                    view.setProgressBar(false);
+                    view.setProgressBarVisible(false);
+                    view.setBudgetViewVisible(true);
                 }
             }
 
             @Override
             public void onFailure(Throwable throwable) {
                 if (view != null) {
-                    view.setProgressBar(false);
+                    view.setProgressBarVisible(false);
+                    view.setBudgetViewVisible(false);
                     view.showErrorMessage(context.getString(R.string.error_msg));
                 }
             }

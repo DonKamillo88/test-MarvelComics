@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,8 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
     TextView maxComicsNoTV;
     @BindView(R.id.max_pages_no)
     TextView maxPagesNoTV;
+    @BindView(R.id.budget_view)
+    LinearLayout budgetView;
     @BindView(R.id.budget)
     EditText budgetET;
 
@@ -139,8 +142,13 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
     }
 
     @Override
-    public void setProgressBar(boolean b) {
-        progressBar.setVisibility(b ? View.VISIBLE : View.GONE);
+    public void setBudgetViewVisible(boolean visible) {
+        budgetView.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setProgressBarVisible(boolean visible) {
+        progressBar.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     @Override

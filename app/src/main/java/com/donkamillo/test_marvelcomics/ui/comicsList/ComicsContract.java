@@ -12,7 +12,9 @@ public class ComicsContract {
 
         void updateComicsData(ComicModel comicModel);
 
-        void setProgressBar(boolean b);
+        void setBudgetViewVisible(boolean visible);
+
+        void setProgressBarVisible(boolean visible);
 
         void showErrorMessage(String message);
 
