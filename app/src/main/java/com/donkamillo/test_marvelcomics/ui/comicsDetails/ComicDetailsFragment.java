@@ -76,7 +76,7 @@ public class ComicDetailsFragment extends Fragment {
         if (comicDetail == null) return;
 
         titleTV.setText(comicDetail.getTitle());
-        descriptionTV.setText(comicDetail.getDescription() != null ? Html.fromHtml(comicDetail.getDescription()) : "---");
+        descriptionTV.setText(comicDetail.getDescription() != null ? Html.fromHtml(comicDetail.getDescription()) : "");
         pageCountTV.setText(comicDetail.getPageCount() + "");
         priceTV.setText(getPrice(comicDetail.getPrices()));
         creatorsTV.setText(Html.fromHtml(getCreatorstList(comicDetail.getCreators())));
@@ -85,7 +85,7 @@ public class ComicDetailsFragment extends Fragment {
 
     private String getCreatorstList(ComicModel.Creator creator) {
         if (creator == null || creator.getItems() == null || creator.getItems().isEmpty()) {
-            return "---";
+            return "";
         }
         StringBuilder bullets = new StringBuilder();
         for (ComicModel.CreatorItem creatorItem : creator.getItems()) {
@@ -98,7 +98,7 @@ public class ComicDetailsFragment extends Fragment {
         if (prices != null && !prices.isEmpty() && prices.get(0) != null)
             return prices.get(0).getPrice() + "";
         else
-            return "---";
+            return "";
     }
 
     @Override

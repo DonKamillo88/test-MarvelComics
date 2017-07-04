@@ -38,7 +38,9 @@
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -57,6 +59,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
                     tools:text="40" />
             </TableRow>
 
@@ -77,6 +80,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
                     tools:text="4300" />
             </TableRow>
         </TableLayout>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Test-MarvelComics</string>
     <string name="error_msg">Something went wrong, please try again later.</string>
-    <string name="your_budget">Your budget</string>
+    <string name="your_budget">Your budget:</string>
     <string name="max_number_of_comics">Max number of comics</string>
     <string name="max_number_of_pages">Max number of pages</string>
     <string name="creators">Creators:</string>
