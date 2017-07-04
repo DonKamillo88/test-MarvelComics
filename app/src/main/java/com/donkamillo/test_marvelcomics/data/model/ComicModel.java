@@ -7,7 +7,7 @@ import java.util.List;
  * Created by DonKamillo on 03.07.2017.
  */
 
-public class ComicModel {
+public class ComicModel implements Serializable {
 
     private Data data;
 

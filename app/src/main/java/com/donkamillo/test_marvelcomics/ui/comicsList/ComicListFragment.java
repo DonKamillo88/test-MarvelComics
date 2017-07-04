@@ -55,7 +55,7 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
     private OnItemSelectedListener onItemSelectedListener;
     private ComicsCardsAdapter adapter;
     private Unbinder unbinder;
-
+    private ComicModel comicModel;
 
     public interface OnItemSelectedListener {
         void onItemSelected(ComicModel.Result data);
@@ -112,7 +112,21 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
         super.onActivityCreated(savedInstanceState);
 
         comicsPresenter.setView(this);
-        comicsPresenter.getComics();
+
+        if (savedInstanceState != null) {
+            //probably orientation change
+            comicModel = (ComicModel) savedInstanceState.getSerializable("list");
+        }
+        if (comicModel != null) {
+            setProgressBarVisible(false);
+            setBudgetViewVisible(true);
+            updateComicsData(comicModel);
+            //returning from backstack, data is fine, do nothing
+        } else {
+            //newly created, compute data
+            comicsPresenter.getComics();
+        }
+
 
         budgetET.addTextChangedListener(new TextWatcher() {
             @Override
@@ -135,6 +149,7 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
 
     @Override
     public void updateComicsData(ComicModel comicModel) {
+        this.comicModel = comicModel;
         if (comicModel != null) {
             adapter.swapItems(comicModel.getData().getResults());
             adapter.notifyDataSetChanged();
@@ -171,6 +186,13 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
         super.onDestroyView();
         unbinder.unbind();
         comicsPresenter.unSubscribe();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("list", comicModel);
     }
 }
 
