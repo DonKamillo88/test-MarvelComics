@@ -7,10 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.donkamillo.test_marvelcomics.R;
@@ -35,6 +39,12 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
 
     @BindView(R.id.list_view)
     RecyclerView recyclerView;
+    @BindView(R.id.max_comics_no)
+    TextView maxComicsNoTV;
+    @BindView(R.id.max_pages_no)
+    TextView maxPagesNoTV;
+    @BindView(R.id.budget)
+    EditText budgetET;
 
     @Inject
     ComicsPresenter comicsPresenter;
@@ -100,6 +110,24 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
 
         comicsPresenter.setView(this);
         comicsPresenter.getComics();
+
+        budgetET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s != null && !s.toString().isEmpty())
+                    comicsPresenter.onBudgetTextChanged(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -118,6 +146,16 @@ public class ComicListFragment extends Fragment implements ComicsContract.View {
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setMaxPagesNo(int maxPagesNo) {
+        maxPagesNoTV.setText(maxPagesNo + "");
+    }
+
+    @Override
+    public void setMaxComicsNo(int maxComicsNo) {
+        maxComicsNoTV.setText(maxComicsNo + "");
     }
 
     @Override

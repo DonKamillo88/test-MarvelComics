@@ -74,4 +74,12 @@ public class ComicsPresenter implements ComicsContract.Presenter {
     public void setView(Object view) {
         this.view = (ComicsContract.View) view;
     }
+
+    @Override
+    public void onBudgetTextChanged(String s) {
+
+        double currentBudget = Double.parseDouble(s.replaceAll(" ", ".").replaceAll(",", "."));
+        view.setMaxComicsNo((int) currentBudget);
+        view.setMaxPagesNo((int) currentBudget);
+    }
 }

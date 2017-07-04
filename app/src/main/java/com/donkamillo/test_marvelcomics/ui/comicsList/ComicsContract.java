@@ -15,6 +15,10 @@ public class ComicsContract {
         void setProgressBar(boolean b);
 
         void showErrorMessage(String message);
+
+        void setMaxPagesNo(int maxPagesNo);
+
+        void setMaxComicsNo(int maxComicsNo);
     }
 
     interface Presenter<T> {
@@ -25,6 +29,7 @@ public class ComicsContract {
 
         void setView(T view);
 
+        void onBudgetTextChanged(String s);
     }
 
 }
